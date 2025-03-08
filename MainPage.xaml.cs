@@ -127,17 +127,13 @@ namespace TheatreSeating
         {
 
         }
-
-        //Assign to Team 3 Member
         private void ButtonCancelReservationRange(object sender, EventArgs e)
         {
-
+            //Divine Precious-Esue
         }
-
-        //Assign to Team 4 Member
         private void ButtonResetSeatingChart(object sender, EventArgs e)
         {
-
+            //Divine Precious-Esue
         }
     }
 
