@@ -119,7 +119,7 @@ namespace TheatreSeating
         //Assign to Team 1 Member
         private void ButtonReserveRange(object sender, EventArgs e)
         {
-            //a comment
+            // Lee Dempsey
         }
 
         //Assign to Team 2 Member
