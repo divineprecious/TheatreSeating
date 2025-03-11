@@ -117,15 +117,113 @@ namespace TheatreSeating
         }
 
         //Assign to Team 1 Member
-        private void ButtonReserveRange(object sender, EventArgs e)
+        private async void ButtonReserveRange(object sender, EventArgs e)
         {
-            // Lee Dempsey
+            // Taking input for the first and last seats in the range and creating variables
+            // for the seat numbers
+            string first_seat = await DisplayPromptAsync("Enter Seat Range", "Enter first seat: ");
+            string last_seat = await DisplayPromptAsync("Enter Seat Range", "Enter last seat: ");
+            int f_seat_num = 0;
+            int l_seat_num = 0;
+
+            // Main if statement to try to find the seats and reserve them if they're available
+            if (first_seat != null && last_seat != null) 
+            {
+                // This if statement makes sure the seats are on the same row
+                if (first_seat[0] != last_seat[0])
+                {
+                    await DisplayAlert("Error", "Seats must all be on the same row.", "Ok");
+                    return;
+                }
+
+                // These statements to make sure the seat numbers are valid, meaning they're not the same
+                // and they are within the range of the row
+                if (first_seat == last_seat)
+                {
+                    await DisplayAlert("Error", "First and last seat must be different.", "Ok");
+                    return;
+                }
+                else
+                {
+                    // First seat number shouldn't be greater than 9
+                    if (first_seat.Length > 2)
+                    {
+                        await DisplayAlert("Error", "Invalid seat numbers.", "Ok");
+                        return;
+                    }
+                    else
+                    {
+                        f_seat_num = (Convert.ToInt32(Char.GetNumericValue(first_seat, 1)));
+                    }
+                    // Last seat number can be 10, but no greater
+                    if (last_seat.Length > 2)
+                    {
+                        if (last_seat[1] == '1' && last_seat[2] == '0')
+                        {
+                            l_seat_num = 10;
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", "Invalid seat numbers.", "Ok");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        l_seat_num = (Convert.ToInt32(Char.GetNumericValue(last_seat, 1)));
+                    }
+                }
+
+                // For loop that finds the seats in the array seatingChart
+                for (int i = 0; i < seatingChart.GetLength(0); i++)
+                {
+                    for (int j = 0; j < seatingChart.GetLength(1); j++)
+                    {  
+                        // These two if statements find the first seat
+                        if (seatingChart[i, j].Name[0] == first_seat[0])
+                        {
+                            if (seatingChart[i, j].Name[1] == first_seat[1])
+                            {
+                                // bool variable and for loop to check if a seat within the range is already reserved
+                                bool seatAlreadyReserved = false;
+                                for (int k = (f_seat_num - 1); k <= (l_seat_num - 1); k++)
+                                {
+                                    if (seatingChart[i, k].Reserved == true)
+                                    {
+                                        seatAlreadyReserved = true;
+                                    } 
+                                }
+                                // If none of the seats in the range are reserved already, then they will be.
+                                // Otherwise, an error message is displayed
+                                if (seatAlreadyReserved != true)
+                                {
+                                    for (int k = (f_seat_num - 1); k <= (l_seat_num - 1); k++)
+                                    {
+                                        seatingChart[i, k].Reserved = true;
+                                    }
+                                    await DisplayAlert("Successfully Reserved", "Your seats were reserved successfully!", "Ok");
+                                    RefreshSeating();
+                                    return;
+                                } else
+                                {
+                                    await DisplayAlert("Error", "Seats in that range are already reserved.", "Ok");
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         //Assign to Team 2 Member
         private void ButtonCancelReservation(object sender, EventArgs e)
         {
-
+            
         }
         private void ButtonCancelReservationRange(object sender, EventArgs e)
         {
