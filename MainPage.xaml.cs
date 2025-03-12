@@ -127,7 +127,7 @@ namespace TheatreSeating
             int l_seat_num = 0;
 
             // Main if statement to try to find the seats and reserve them if they're available
-            if (first_seat != null && last_seat != null) 
+            if (first_seat != null && last_seat != null)
             {
                 // This if statement makes sure the seats are on the same row
                 if (first_seat[0] != last_seat[0])
@@ -178,7 +178,7 @@ namespace TheatreSeating
                 for (int i = 0; i < seatingChart.GetLength(0); i++)
                 {
                     for (int j = 0; j < seatingChart.GetLength(1); j++)
-                    {  
+                    {
                         // These two if statements find the first seat
                         if (seatingChart[i, j].Name[0] == first_seat[0])
                         {
@@ -191,7 +191,7 @@ namespace TheatreSeating
                                     if (seatingChart[i, k].Reserved == true)
                                     {
                                         seatAlreadyReserved = true;
-                                    } 
+                                    }
                                 }
                                 // If none of the seats in the range are reserved already, then they will be.
                                 // Otherwise, an error message is displayed
@@ -204,7 +204,8 @@ namespace TheatreSeating
                                     await DisplayAlert("Successfully Reserved", "Your seats were reserved successfully!", "Ok");
                                     RefreshSeating();
                                     return;
-                                } else
+                                }
+                                else
                                 {
                                     await DisplayAlert("Error", "Seats in that range are already reserved.", "Ok");
                                     return;
@@ -223,16 +224,31 @@ namespace TheatreSeating
         //Assign to Team 2 Member
         private void ButtonCancelReservation(object sender, EventArgs e)
         {
-            
+
         }
-        private void ButtonCancelReservationRange(object sender, EventArgs e)
+        private async void ButtonCancelReservationRange(object sender, EventArgs e)
         {
             //Divine Precious-Esue
         }
-        private void ButtonResetSeatingChart(object sender, EventArgs e)
+        private async void ButtonResetSeatingChart(object sender, EventArgs e)
         {
             //Divine Precious-Esue
+            //Confirms whether the user wants to reset the seating chart
+            bool input = await DisplayAlert("Confirmation", "Are you sure you would like to reset the seating chart?", "Yes", "No");
+            if (input)
+            {
+                for (int i = 0; i < seatingChart.GetLength(0); i++)
+                {
+                    for (int j = 0; j < seatingChart.GetLength(1); j++)
+                    {
+                        seatingChart[i, j].Reserved = false;
+                    }
+                }
+                await DisplayAlert("Succesful!","The seating chart was reset succesfully", "Ok");
+                RefreshSeating();
+            }
         }
     }
-
 }
+           
+
