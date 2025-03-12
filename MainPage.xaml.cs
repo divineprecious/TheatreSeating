@@ -115,10 +115,9 @@ namespace TheatreSeating
                 }
             }
         }
-
-        //Assign to Team 1 Member
         private async void ButtonReserveRange(object sender, EventArgs e)
         {
+            //Lee Dempsey
             // Taking input for the first and last seats in the range and creating variables
             // for the seat numbers
             string first_seat = await DisplayPromptAsync("Enter Seat Range", "Enter first seat: ");
@@ -225,7 +224,7 @@ namespace TheatreSeating
         //Zavian Holmes
         private async void ButtonCancelReservation(object sender, EventArgs e)
         {
-            var seat = await DisplayPromptAsync("Enter Range", "Enter Seat Number to Cancel Reservation:");
+            var seat = await DisplayPromptAsync("Enter Seat Number", "Enter Seat Number to Cancel Reservation:");
 
             //Proceeds only if the user gives input
             if (seat != null)
@@ -263,6 +262,27 @@ namespace TheatreSeating
         private async void ButtonCancelReservationRange(object sender, EventArgs e)
         {
             //Divine Precious-Esue
+            string first_seat = await DisplayPromptAsync("Enter Seat Range", "Enter first seat: ");
+            string last_seat = await DisplayPromptAsync("Enter Seat Range", "Enter last seat: ");
+
+            if (first_seat != null && last_seat != null) 
+            {
+                if (first_seat[0] == last_seat[0]) 
+                {
+                    //Converts row letter to ASCII value and subtracts from A to get what row the user selected in numerical form
+                    int row = first_seat[0] - 'A';
+                    int start_col = first_seat[1] - '0';
+                    int end_col = last_seat[1] - '0';
+
+                    for (int j = start_col - 1;  j < end_col; j++) 
+                    {
+                        Console.WriteLine(j);
+                        seatingChart[row,j].Reserved = false;
+                    }
+                    await DisplayAlert("Succesful!", "Your seats were canceled succesfully", "Ok");
+                    RefreshSeating();
+                }
+            }
         }
         private async void ButtonResetSeatingChart(object sender, EventArgs e)
         {
