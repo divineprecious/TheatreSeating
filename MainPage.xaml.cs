@@ -223,7 +223,7 @@ namespace TheatreSeating
         //Assign to Team 2 Member
         private void ButtonCancelReservation(object sender, EventArgs e)
         {
-            
+            //Zavian Holmes
         }
         private void ButtonCancelReservationRange(object sender, EventArgs e)
         {
