@@ -222,11 +222,45 @@ namespace TheatreSeating
         }
 
         //Assign to Team 2 Member
-        private void ButtonCancelReservation(object sender, EventArgs e)
+        //Zavian Holmes
+        private async void ButtonCancelReservation(object sender, EventArgs e)
         {
-            //Zavian Holmes
+            var range = await DisplayPromptAsync("Enter Range", "Enter Seat Number to Cancel Reservation:");
+
+            //Proceeds only if the user gives input
+            if (seat != null)
+            {
+                //Loops through the seating chart to locate the seat specifed by the user
+                for (int i = 0; i < seatingChart.GetLength(0); i++)
+                {
+                    for (int j = 0; j < seatingChar.GetLength(1); j++)
+                    {
+                        // Check if the current seat matches the user's input
+                        if (seatingChart[i, j].Name == seat)
+                        {
+                            //If the seat is reserved, the reservation is cancelled
+                            if (seatingChart[i,j].Reserved)
+                            {
+                                seatingChart[i, j].Reserved = false; // Sets the seat as available
+                                RefreshSeating(); //Refreshes the UI to reflect changes made
+                                await DisplayAlert("Success", "Reservation canceled successfully!", "Ok");
+                                return; // Exit once the reservation is canceled
+                            }
+                            else
+                            {
+                                //If the seat is not reserved, an error message is displayed
+                                await DisplayAlert("Error", "Seat is not reserved.", "Ok");
+                                return;
+                            }
+                        }
+                    }
+                }
+                //If no matching seat is found, an error message is displayed
+                await DisplayAlert("error", "Seat not found.", "Ok");
+            }
         }
-        
+        }
+
         private async void ButtonCancelReservationRange(object sender, EventArgs e)
         {
             //Divine Precious-Esue
