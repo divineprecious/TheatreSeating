@@ -225,7 +225,7 @@ namespace TheatreSeating
         //Zavian Holmes
         private async void ButtonCancelReservation(object sender, EventArgs e)
         {
-            var range = await DisplayPromptAsync("Enter Range", "Enter Seat Number to Cancel Reservation:");
+            var seat = await DisplayPromptAsync("Enter Range", "Enter Seat Number to Cancel Reservation:");
 
             //Proceeds only if the user gives input
             if (seat != null)
@@ -233,7 +233,7 @@ namespace TheatreSeating
                 //Loops through the seating chart to locate the seat specifed by the user
                 for (int i = 0; i < seatingChart.GetLength(0); i++)
                 {
-                    for (int j = 0; j < seatingChar.GetLength(1); j++)
+                    for (int j = 0; j < seatingChart.GetLength(1); j++)
                     {
                         // Check if the current seat matches the user's input
                         if (seatingChart[i, j].Name == seat)
@@ -256,9 +256,8 @@ namespace TheatreSeating
                     }
                 }
                 //If no matching seat is found, an error message is displayed
-                await DisplayAlert("error", "Seat not found.", "Ok");
+                await DisplayAlert("Error", "Seat not found.", "Ok");
             }
-        }
         }
 
         private async void ButtonCancelReservationRange(object sender, EventArgs e)
