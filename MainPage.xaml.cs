@@ -280,6 +280,7 @@ namespace TheatreSeating
                         Console.WriteLine(j);
                         seatingChart[row,j].Reserved = false;
                     }
+                    await DisplayAlert("Succesful!", "Your seats were canceled succesfully", "Ok");
                     RefreshSeating();
                 }
             }
