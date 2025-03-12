@@ -115,10 +115,9 @@ namespace TheatreSeating
                 }
             }
         }
-
-        //Assign to Team 1 Member
         private async void ButtonReserveRange(object sender, EventArgs e)
         {
+            //Lee Dempsey
             // Taking input for the first and last seats in the range and creating variables
             // for the seat numbers
             string first_seat = await DisplayPromptAsync("Enter Seat Range", "Enter first seat: ");
